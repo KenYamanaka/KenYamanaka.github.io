@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>DIG FND15 DAY20発表</title>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/themes/prism.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<header>投稿日 2023年03月28日 FND15 山中 健</header>
+
+<body>
+  <h1>プログラミング用の特殊テキストをもっとミスなく早く打てるようにタイピングアプリを作ってみた件</h1>
+  <h2>はじめに</h2>
+  <h3>今まではあまり使わなかったけど、プログラミングでよく使う特殊テキスト（!:バン, `:バッククオート ..etc）のタイピングミスが
+    多いので、練習用にアプリを作ったので紹介します。</h3>
+
+  <h2>アプリの説明</h2>
+  <ol>
+    <li>?に26個の特殊テキストのうち、1つずつランダムに表示されます。表示されたテキストを入力してください。</li>
+    <li>Startボタンをクリックすると、ゲーム開始されます。</li>
+    <li>Resetボタンをクリックすると、ゲームが初期状態に戻ります。</li>
+    <li>全てのテキストを入力すると、Finishと表示され、経過時間と経過時間に応じた判定のコメントが表示されます。</li>
+  </ol>
+
+  <div class="box1">
+    <p id="target">?</p>
+    <p id="result">経過時間</p>
+    <p id="result2">判定</p>
+  </div>
+
+  <div class="box2">
+    <button id="btnStart">Strat</button>
+    <button id="btnReset">Reset</button>
+  </div>
+
+
+  <h2>アプリの機能として欲しかったこと</h2>
+  <li>同じテキストが表示されないようにしたい</li>
+  <ul>splice()メソッドを使用し、26個の特殊テキストが入ったtexts配列のテキストを1個ずつ削除</ul>
+  <pre class="code">
+    <code class="language-javascript">
+      // texts配列からランダムなtextを選択し、表示させて、配列から削除するmakeText関数
+     function makeText() {
+       const randomIndex = Math.floor(Math.random() * texts.length);
+       text = texts[randomIndex];
+       target.innerText = text;
+       texts.splice(randomIndex, 1)
+     }
+   </code>
+  </pre>
+
+  <li>経過時間を表示させたい</li>
+  <ul>Data.now()メソッドを使用し、経過時間(elapsedTime)はStartボタンをクリックした開始時刻(startTime)と現在時刻(Date.now())の差分から計算</ul>
+  <li>経過時間に応じたコメントを表示させたい</li>
+  <ul>"if" "else if"の条件分岐を使用し、コメントを変更</ul>
+  <pre class="code">
+    <code class="language-javascript">
+      //全てのtexts配列の要素が表示された時の処理
+      if (texts.length === 0) {
+        target.textContent = 'Finish';
+        // 経過時間を計算して表示する
+        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
+        result.textContent = `${elapsedTime} 秒!`;
+        // 経過時間に応じたコメントを表示する
+        if (elapsedTime <= 20) {
+          result2.textContent = '神やん!';
+        } else if (elapsedTime <= 30) {
+          result2.textContent = 'まぁまぁ!';
+        } else {
+          result2.textContent = '調子悪い?';
+        }
+        return;
+      }
+   </code>
+  </pre>
+
+  
+  <h2>今後改善ポイント・追加したい機能</h2>
+  <li>改善ポイント</li>
+  <ul>JavaScriptコードのリファクタリング。関数の処理を可読性も考慮して分かりやすくしたい。 CSSでWeb表示を見やすくしたい。 </ul>
+  <li>追加したい機能  ランキング表示させたい</li>
+  <ul>例えばゲーム実施した日時と経過時間の履歴を保存させて、Top10のランキングを表示させる。 </ul>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
