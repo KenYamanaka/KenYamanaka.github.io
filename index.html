@@ -76,11 +76,31 @@
    </code>
   </pre>
 
-  
+  <h2>バグ対応</h2>
+  <li>ゲーム中にStartボタンを押すと、次のテキストが表示できる</li>
+  <ul>対処としてはゲーム中かどうかを示す実行フラグisGmaingを設定し、ゲーム中のStartボタンを無効化</ul>
+  <pre class="code">
+    <code class="language-javascript">
+      // Startボタンが押された時の処理
+      let isGaming = false;
+      buttonStart.addEventListener('click', () => {
+      // 既にゲーム中ならStartボタンを押しても何もしない
+      if (isGaming === true) {
+        return;
+      }
+      // ゲーム中ではない時はStartボタンでゲームを開始し、現在時刻の取得とmakeTextを実行
+      isGaming = true;
+      startTime = Date.now();
+      makeText();
+      });
+   </code>
+  </pre>
+
+
   <h2>今後改善ポイント・追加したい機能</h2>
   <li>改善ポイント</li>
   <ul>JavaScriptコードのリファクタリング。関数の処理を可読性も考慮して分かりやすくしたい。 CSSでWeb表示を見やすくしたい。 </ul>
-  <li>追加したい機能  ランキング表示させたい</li>
+  <li>追加したい機能 ランキング表示させたい</li>
   <ul>例えばゲーム実施した日時と経過時間の履歴を保存させて、Top10のランキングを表示させる。 </ul>
 
   <script src="script.js"></script>

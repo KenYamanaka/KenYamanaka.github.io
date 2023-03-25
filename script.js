@@ -4,30 +4,30 @@
 const texts = [
   "<",
   ">",
-  "`",
-  '"',
-  "!",
-  "}",
-  "{",
-  "$",
-  ",",
-  ".",
-  "=",
-  "(",
-  ")",
-  "*",
-  "-",
-  "_",
-  "/",
-  ";",
-  ":",
-  "[",
-  "]",
-  "+",
-  "'",
-  "%",
-  "#",
-  "&",
+  // "`",
+  // '"',
+  // "!",
+  // "}",
+  // "{",
+  // "$",
+  // ",",
+  // ".",
+  // "=",
+  // "(",
+  // ")",
+  // "*",
+  // "-",
+  // "_",
+  // "/",
+  // ";",
+  // ":",
+  // "[",
+  // "]",
+  // "+",
+  // "'",
+  // "%",
+  // "#",
+  // "&",
 ];
 
 const target = document.getElementById('target');
@@ -37,7 +37,6 @@ const result = document.getElementById('result');
 const result2 = document.getElementById('result2');
 
 let text = "";
-let isPlaying = false;
 let startTime;
 
 // texts配列からランダムなtextを選択し、表示させて、配列から削除する関数
@@ -50,13 +49,14 @@ function makeText() {
 
 
 // Startボタンが押された時の処理
+let isGaming = false;
 buttonStart.addEventListener('click', () => {
-  // 既にゲーム中なら何もしない
-  if (isPlaying === true) {
+  // 既にゲーム中ならStartボタンを押しても何もしない
+  if (isGaming === true) {
     return;
   }
-  // ゲーム中ではないときはisPlayingをtrueにし、Start時の現在時刻の取得と最初のtextを表示
-  isPlaying = true;
+  // ゲーム中ではない時はStartボタンでゲームを開始し、現在時刻の取得とmakeTextを実行
+  isGaming = true;
   startTime = Date.now();
   makeText();
 });
